@@ -17,6 +17,8 @@ from ai import get_completion
 from stt import transcribe
 from tts import to_speech
 
+import os
+
 app = FastAPI()
 origins = [
     "http://localhost:3000",  # React app address
