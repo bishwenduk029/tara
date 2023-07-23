@@ -2,6 +2,10 @@ FROM node:18.16 AS frontend_builder
 
 WORKDIR /frontend
 
+COPY ./frontend/package.json ./frontend/yarn.lock ./
+
+RUN yarn install --frozen-lockfile
+
 COPY ./frontend/ ./
 
 RUN yarn build
@@ -15,7 +19,8 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=11.0"
 
 # Install FFmpeg for video processing
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg python3.11
+RUN update-alternatives --config python3
 
 # Copy frontend build from the frontend_builder stage
 COPY --from=frontend_builder /frontend/dist /app/frontend/dist
@@ -28,7 +33,7 @@ COPY ./backend/requirements.txt .
 
 # Install Python dependencies
 RUN apt-get update && apt-get install -y python3-pip
-RUN pip3 install --no-cache-dir --upgrade -r requirements.txt
+RUN pthon3 -m pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Copy the backend application code
 COPY ./backend /app
