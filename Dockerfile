@@ -16,6 +16,7 @@ WORKDIR /
 
 ENV MAX_WORKERS=5
 
+
 RUN apt-get update && apt-get install -y ffmpeg
 
 COPY ./backend/requirements.txt /tmp/

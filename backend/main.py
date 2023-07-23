@@ -19,13 +19,15 @@ from tts import to_speech
 
 import os
 
+supabase_secret = os.environ('SUPABASE_JWT_ACCESS_KEY')
+
 app = FastAPI()
 origins = [
     "http://localhost:3000",  # React app address
     # any other origins that need access to the API
 ]
 
-SECRET_KEY = "xoiq9aYf82Zfz0oTQ8fCCe4Q0/CKfnATSwEQjqGHIhaC9BDXSMLNK1mqtuDIIhq5bXKItSpFUPq88nJCBc6WRA=="
+SECRET_KEY = supabase_secret
 ALGORITHM = "HS256"
 
 
@@ -98,7 +100,7 @@ async def api_process_objective(chat_input: ChatInput, user_id: str = Depends(ge
     return ai_response_text
 
 
-app.mount("/", StaticFiles(directory="/Users/kundb/projects/tara/frontend/dist"), name="static")
+app.mount("/", StaticFiles(directory="/app/frontend/dist"), name="static")
 
 
 def _construct_response_header(user_prompt, ai_response):
