@@ -1,6 +1,7 @@
 import { Box, Flex, useBreakpointValue } from '@chakra-ui/react';
 import type React from 'react';
 
+// @ts-ignore
 const Layout: React.FC = ({ children }) => {
   const template = useBreakpointValue({
     base: `

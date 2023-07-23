@@ -27,9 +27,9 @@ import { MoonLoader } from "react-spinners";
 
 export type FilePreview = File & { preview: string };
 
-interface ChatInput {
+export interface ChatInput {
   // Define the properties of your ChatInput interface based on your requirements
-  message: string;
+  user_message: string;
 }
 
 const uploadToSupabase = async (file: File) => {
@@ -161,6 +161,7 @@ const ChannelData: React.FC = () => {
     };
     // Call the mutation function with the form data
     try {
+      // @ts-ignore
       createChat.mutate(formData, getToken);
     } catch (error) {
       console.log(error);

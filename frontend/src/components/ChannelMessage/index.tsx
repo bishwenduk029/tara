@@ -1,7 +1,8 @@
-import { Avatar, Flex, Heading, Box, Text } from '@chakra-ui/react';
-import type React from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+// @ts-ignore
+import { Avatar, Flex, Heading, Box, Text } from "@chakra-ui/react";
+import type React from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export interface Props {
   author: string;
@@ -30,7 +31,7 @@ const ChannelMessage: React.FC<Props> = ({
       padding="4px 16px"
       marginRight="4px"
       marginTop="13px"
-      _first={{ marginTop: 'auto' }}
+      _first={{ marginTop: "auto" }}
     >
       <Avatar size="md" name={author} src={src} />
 
@@ -42,7 +43,7 @@ const ChannelMessage: React.FC<Props> = ({
         bg="transparent"
       >
         <Flex align="center">
-          <Heading color={isBot ? '#6e86d6' : '#f84a4b'} fontSize="16px">
+          <Heading color={isBot ? "#6e86d6" : "#f84a4b"} fontSize="16px">
             {author}
           </Heading>
           {isBot && (
@@ -62,7 +63,7 @@ const ChannelMessage: React.FC<Props> = ({
           <Text
             as="em"
             marginLeft="6px"
-            color={hasMention ? '#6e86d6' : 'alpha.900'}
+            color={hasMention ? "#6e86d6" : "alpha.900"}
             fontSize="13px"
           >
             {date}
@@ -70,7 +71,9 @@ const ChannelMessage: React.FC<Props> = ({
         </Flex>
         <Flex textAlign="left" fontSize="16px" color="white">
           <Box color="alpha.300" cursor="pointer" marginRight="8px">
-            <ReactMarkdown children={content} remarkPlugins={[remarkGfm]} />
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+            >{`${content}`}</ReactMarkdown>
           </Box>
         </Flex>
       </Flex>

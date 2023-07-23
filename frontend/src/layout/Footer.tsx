@@ -2,7 +2,6 @@ import { Box, chakra, Container, Stack, Text } from "@chakra-ui/react";
 import { FaGithub, FaTwitter } from "react-icons/fa";
 import { ReactNode } from "react";
 import { MdAlternateEmail } from "react-icons/md";
-import Link from "next/link";
 
 const SocialButton = ({
   children,
@@ -49,10 +48,10 @@ export default function Footer() {
         <Text></Text>
         <Stack alignItems="center" direction="row" spacing={4}>
           <Text fontSize="sm">
-            <Link href="/terms">Terms and Privacy</Link>
+            <a href="/terms">Terms and Privacy</a>
           </Text>
           <Text fontSize="sm">
-            <Link href="/faq">FAQ</Link>
+            <a href="/faq">FAQ</a>
           </Text>
           <SocialButton href="https://twitter.com/bishwenduk029">
             <FaTwitter />
