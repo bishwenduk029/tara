@@ -14,6 +14,7 @@ from llama_index.indices.vector_store import VectorStoreIndex
 from llama_index.vector_stores import SupabaseVectorStore
 from langchain.tools import StructuredTool
 from llama_index.langchain_helpers.memory_wrapper import GPTIndexChatMemory
+from llm import llm
 
 basic_tools = load_tools(["requests_all"])
 
@@ -54,10 +55,10 @@ prompt = ConversationalAgent.create_prompt(
     input_variables=["input", "agent_scratchpad", "chat_history"]
 )
 
-llm = OpenAI(temperature=0, model_name="gpt-4")
+# llm_chain = LLMChain(llm=OpenAI(
+#     temperature=0, model_name="gpt-4"), prompt=prompt)
 
-llm_chain = LLMChain(llm=OpenAI(
-    temperature=0, model_name="gpt-4"), prompt=prompt)
+llm_chain = LLMChain(llm=llm, prompt=prompt)
 
 tool_names = [tool.name for tool in tools]
 agent = ConversationalAgent(llm_chain=llm_chain, allowed_tools=tool_names)

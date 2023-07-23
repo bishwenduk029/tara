@@ -11,6 +11,9 @@ import {
 import { Chakra } from "./components/Chakra.tsx";
 import Header from "./layout/Header.tsx";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -21,35 +24,37 @@ if (!clerkPubKey) {
 const App = () => {
   return (
     <Chakra>
-      <BrowserRouter>
-        <ClerkProvider publishableKey={clerkPubKey}>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Hero />} />
-            <Route
-              path="/sign-in/*"
-              element={<SignIn routing="path" path="/sign-in" />}
-            />
-            <Route
-              path="/sign-up/*"
-              element={<SignUp routing="path" path="/sign-up" />}
-            />
-            <Route
-              path="/chat"
-              element={
-                <>
-                  <SignedIn>
-                    <ChannelData />
-                  </SignedIn>
-                  <SignedOut>
-                    <RedirectToSignIn />
-                  </SignedOut>
-                </>
-              }
-            />
-          </Routes>
-        </ClerkProvider>
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <ClerkProvider publishableKey={clerkPubKey}>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Hero />} />
+              <Route
+                path="/sign-in/*"
+                element={<SignIn routing="path" path="/sign-in" />}
+              />
+              <Route
+                path="/sign-up/*"
+                element={<SignUp routing="path" path="/sign-up" />}
+              />
+              <Route
+                path="/chat"
+                element={
+                  <>
+                    <SignedIn>
+                      <ChannelData />
+                    </SignedIn>
+                    <SignedOut>
+                      <RedirectToSignIn />
+                    </SignedOut>
+                  </>
+                }
+              />
+            </Routes>
+          </ClerkProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
     </Chakra>
   );
 };

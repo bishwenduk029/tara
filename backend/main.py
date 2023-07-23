@@ -11,7 +11,7 @@ from fastapi.responses import FileResponse
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from agents.ava import get_ava_for_user
+from pydantic import BaseModel
 
 from ai import get_completion
 from stt import transcribe
@@ -45,6 +45,7 @@ def get_current_user(authorization: Optional[str] = Header(None)):
     )
     # if not authorization:
     #     raise credentials_exception
+    print(authorization)
     scheme, token = authorization.split()
     print(scheme.lower() != 'bearer')
     if scheme.lower() != 'bearer':
@@ -52,7 +53,6 @@ def get_current_user(authorization: Optional[str] = Header(None)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[
                              ALGORITHM], options={"verify_aud": False})
-        print(payload)
         user_id: str = payload.get("sub")
         if user_id is None:
             raise credentials_exception

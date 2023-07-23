@@ -17,6 +17,7 @@ from langchain.requests import TextRequestsWrapper
 from tools.requests_get import RequestsGetTool
 from langchain.tools.base import BaseTool
 from tools.get_google_access_token import get_access_token
+from llm import llm
 
 def _get_tools_requests_get() -> BaseTool:
     return RequestsGetTool()
@@ -49,7 +50,8 @@ def initialize_agent():
         ai_name="Ava",
         ai_role="Virtual Assistant",
         tools=tools,
-        llm=ChatOpenAI(model_name="gpt-4", temperature=0),
+        # llm=ChatOpenAI(model_name="gpt-4", temperature=0),
+        llm=llm,
         memory=vectorstore.as_retriever()
     )
     agent.chain.verbose = True
